@@ -1,6 +1,10 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.829);
+  color: #e3d9d9;
+  letter-spacing: .03rem;
+  
 }
 
 a {
