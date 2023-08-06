@@ -28,15 +28,20 @@ const limiter = RateLimit({
 
 app.use(limiter); // apply to all requests
 
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": 'self',
+    },
+  })
+);
 
-const mongoDB = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.dmc0his.mongodb.net/inventory_app?retryWrites=true&w=majority`;
+const mongoDB = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.dmc0his.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 main().catch(err => debug(err));
 
 async function main() {
   await mongoose.connect(mongoDB);
 }
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
