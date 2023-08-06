@@ -27,6 +27,7 @@ RollSchema.virtual('url').get(function() {
 RollSchema.virtual('priceInDollars').get(function() {
     return this.priceInCents / 100;
 });
+
 // price per 100 grams in cents
 RollSchema.virtual('pricePerOunceInDollars').get(function() {
     return this.priceInCents / (this.weightInGrams / 100);
