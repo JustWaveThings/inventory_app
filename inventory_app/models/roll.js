@@ -20,7 +20,7 @@ RollSchema.virtual('name').get(function() {
 
 // virtual url for roll
 RollSchema.virtual('url').get(function() {
-    return '/catalog/roll/' + this._id;
+    return `/catalog/roll/${this._id}`;
 });
 
 // price in dollars

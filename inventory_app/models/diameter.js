@@ -13,7 +13,7 @@ const DiameterSchema = new Schema({
 // virtual for diameter url
 
 DiameterSchema.virtual('url').get(function() {
-    return '/catalog/diameter/' + this._id;
+    return `/catalog/diameter/${this._id}`;
 });
 
 module.exports = mongoose.model('Diameter', DiameterSchema);
