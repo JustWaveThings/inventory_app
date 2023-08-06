@@ -21,8 +21,8 @@ const app = express();
 
 const RateLimit = require('express-rate-limit');
 const limiter = RateLimit({
-  windowMs: 1 * 60 * 1000, // 15 minutes
-  max: 20,  // limit each IP to 100 requests per windowMs
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 20,  
   delayMs: 0 // disable delaying - full speed until the max limit is reached
 });
 
@@ -30,7 +30,7 @@ app.use(limiter); // apply to all requests
 
 app.use(helmet());
 
-const mongoDB = process.env.MONGODB_URI;
+const mongoDB = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASS}@cluster0.dmc0his.mongodb.net/inventory_app?retryWrites=true&w=majority`;
 main().catch(err => debug(err));
 
 async function main() {
