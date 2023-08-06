@@ -37,3 +37,4 @@ RollSchema.virtual('inStock').get(function() {
     return this.quantityOf > 0;
 });
 
+module.exports = mongoose.model('Roll', RollSchema);
