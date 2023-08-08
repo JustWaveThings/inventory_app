@@ -29,7 +29,7 @@ async function main() {
   console.log("Debug: About to connect");
   await mongoose.connect(mongoDB);
   console.log("Debug: Should be connected?");
-  await  createRolls()
+  await createRolls();
   console.log("Debug: Closing mongoose");
   mongoose.connection.close();
 }
@@ -48,101 +48,141 @@ async function diameterCreate(index, size) {
 }
 
 async function brandCreate(index, name, description, websiteUrl) {
-    const brand = new Brand({ name, description, websiteUrl });
-    await brand.save();
-    brand[index] = brand;
-    console.log(`Added brand: ${name}`);
+  const brand = new Brand({ name, description, websiteUrl });
+  await brand.save();
+  brand[index] = brand;
+  console.log(`Added brand: ${name}`);
 }
 
-async function rollCreate({index, material, diameter, brand, priceInCents, quantityOf, description, SKU, color, weightInGrams}) {
+async function rollCreate({
+  index,
+  material,
+  diameter,
+  brand,
+  priceInCents,
+  quantityOf,
+  description,
+  SKU,
+  color,
+  weightInGrams,
+}) {
+  const roll = new Roll({
+    material,
+    diameter,
+    brand,
+    priceInCents,
+    quantityOf,
+    description,
+    SKU,
+    color,
+    weightInGrams,
+  });
 
-    const roll = new Roll({material, diameter, brand, priceInCents, quantityOf, description, SKU, color, weightInGrams});
-
-    await roll.save();
-   
+  await roll.save();
 }
 
-async function materialCreate( {name, description}) {
-    const material = new Material({ name, description })
-    await material.save();
+async function materialCreate({ name, description }) {
+  const material = new Material({ name, description });
+  await material.save();
 }
 
 // populate functions
 
 async function createDiameters() {
   console.log("Adding diameters");
-  await Promise.all([
-    diameterCreate(0, 1.75),
-    diameterCreate(1, 3),
-  ]);
+  await Promise.all([diameterCreate(0, 1.75), diameterCreate(1, 3)]);
 }
 
 async function createBrands() {
   console.log("Adding brands");
   await Promise.all([
-    brandCreate(0, "Hatchbox", "Hatchbox offers a wide range of high-quality filaments suitable for both beginners and experienced 3D printing enthusiasts. Their reliable and consistent filament options make them a popular choice in the 3D printing community.", "https://www.hatchbox3d.com/"),
-    brandCreate(1, "eSun", "eSun is known for producing cost-effective and reliable 3D printing filaments. With a focus on quality and affordability, eSun's filaments are well-regarded for delivering consistent results across various printing projects.", "https://www.esun3d.net/"),
-    brandCreate(2, "SainSmart", "SainSmart provides a diverse range of filaments catering to different creative needs. Their filaments are known for their vibrant colors and ease of use, making them a popular choice for both hobbyists and professionals.", "https://www.sainsmart.com/"),
-    brandCreate(3, "Overture", "Overture offers a comprehensive selection of filaments that are designed to deliver reliable and high-quality prints. Their commitment to customer satisfaction and product innovation has earned them a solid reputation in the 3D printing community.", "https://www.overture3d.com/"),
-    brandCreate(4, "Proto-Pasta", "Proto-Pasta is renowned for its dedication to pushing the boundaries of filament technology. With a focus on unique formulations like carbon fiber and metal-infused filaments, Proto-Pasta appeals to makers seeking exceptional and distinctive prints.", "https://www.proto-pasta.com/"),
-    brandCreate(5, "MatterHackers", "MatterHackers is a trusted brand that offers a wide array of filaments, tools, and resources for 3D printing enthusiasts. Their commitment to education and support makes them a valuable resource for both beginners and experts.", "https://www.matterhackers.com/"),
-    brandCreate(6, "ColorFabb", "ColorFabb is a premium brand known for its high-quality filaments, including standard PLA and exotic wood and metal composites. Their meticulous attention to quality control ensures that every print meets the highest standards of performance and aesthetics.", "https://colorfabb.com/")
-    ]);
+    brandCreate(
+      0,
+      "Hatchbox",
+      "Hatchbox offers a wide range of high-quality filaments suitable for both beginners and experienced 3D printing enthusiasts. Their reliable and consistent filament options make them a popular choice in the 3D printing community.",
+      "https://www.hatchbox3d.com/"
+    ),
+    brandCreate(
+      1,
+      "eSun",
+      "eSun is known for producing cost-effective and reliable 3D printing filaments. With a focus on quality and affordability, eSun's filaments are well-regarded for delivering consistent results across various printing projects.",
+      "https://www.esun3d.net/"
+    ),
+    brandCreate(
+      2,
+      "SainSmart",
+      "SainSmart provides a diverse range of filaments catering to different creative needs. Their filaments are known for their vibrant colors and ease of use, making them a popular choice for both hobbyists and professionals.",
+      "https://www.sainsmart.com/"
+    ),
+    brandCreate(
+      3,
+      "Overture",
+      "Overture offers a comprehensive selection of filaments that are designed to deliver reliable and high-quality prints. Their commitment to customer satisfaction and product innovation has earned them a solid reputation in the 3D printing community.",
+      "https://www.overture3d.com/"
+    ),
+    brandCreate(
+      4,
+      "Proto-Pasta",
+      "Proto-Pasta is renowned for its dedication to pushing the boundaries of filament technology. With a focus on unique formulations like carbon fiber and metal-infused filaments, Proto-Pasta appeals to makers seeking exceptional and distinctive prints.",
+      "https://www.proto-pasta.com/"
+    ),
+    brandCreate(
+      5,
+      "MatterHackers",
+      "MatterHackers is a trusted brand that offers a wide array of filaments, tools, and resources for 3D printing enthusiasts. Their commitment to education and support makes them a valuable resource for both beginners and experts.",
+      "https://www.matterhackers.com/"
+    ),
+    brandCreate(
+      6,
+      "ColorFabb",
+      "ColorFabb is a premium brand known for its high-quality filaments, including standard PLA and exotic wood and metal composites. Their meticulous attention to quality control ensures that every print meets the highest standards of performance and aesthetics.",
+      "https://colorfabb.com/"
+    ),
+  ]);
 }
-
 
 // helper arrays for createRolls
 
 const brandNames = [
-    "Hatchbox",
-    "eSun",
-    "SainSmart",
-    "Overture",
-    "Proto-Pasta",
-    "MatterHackers",
-    "ColorFabb"
-    ];
+  "Hatchbox",
+  "eSun",
+  "SainSmart",
+  "Overture",
+  "Proto-Pasta",
+  "MatterHackers",
+  "ColorFabb",
+];
 
 const filament_types = [
-    "PLA (Polylactic Acid)",
-    "ABS (Acrylonitrile Butadiene Styrene)",
-    "PETG (Polyethylene Terephthalate Glycol-Modified)",
-    "TPU (Thermoplastic Polyurethane)",
-    "Nylon (Polyamide)",
-    "HIPS (High Impact Polystyrene)",
-    "PVA (Polyvinyl Alcohol)",
-    "PC (Polycarbonate)",
-    "ASA (Acrylonitrile Styrene Acrylate)",
-    "PP (Polypropylene)",
-    "Wood-Infused Filament",
-    "Metal-Infused Filament",
-    "Carbon Fiber-Infused Filament",
-    "Flexible Filament (e.g., TPE)",
-    "Conductive Filament",
-    ];
-
+  "PLA (Polylactic Acid)",
+  "ABS (Acrylonitrile Butadiene Styrene)",
+  "PETG (Polyethylene Terephthalate Glycol-Modified)",
+  "TPU (Thermoplastic Polyurethane)",
+  "Nylon (Polyamide)",
+  "HIPS (High Impact Polystyrene)",
+  "PVA (Polyvinyl Alcohol)",
+  "PC (Polycarbonate)",
+  "ASA (Acrylonitrile Styrene Acrylate)",
+  "PP (Polypropylene)",
+  "Wood-Infused Filament",
+  "Metal-Infused Filament",
+  "Carbon Fiber-Infused Filament",
+  "Flexible Filament (e.g., TPE)",
+  "Conductive Filament",
+];
 
 const pricesInCents = [
-    1021,
-    1150,
-    1356,
-    1432,
-    1725,
-    1899,
-    2134,
-    2305,
-    2550,
-    2799,
-    2950,
-    3125,
-    3310,
-    3550,
-    3999
+  1021, 1150, 1356, 1432, 1725, 1899, 2134, 2305, 2550, 2799, 2950, 3125, 3310,
+  3550, 3999,
 ];
 
 const diameterSizes = [1.75, 3];
 
-const qtyValues = [11, 59, 218, 107, 0, 314, 44, 280, 286, 131, 0, 193, 112, 219, 138, 132, 0, 39, 295, 247, 101, 10, 314, 1, 86, 61, 107, 0, 111, 207, 316, 359, 87, 65, 110, 241, 117, 134, 0, 121, 178, 236, 152, 16, 298, 50, 205, 231, 9, 215];
+const qtyValues = [
+  11, 59, 218, 107, 0, 314, 44, 280, 286, 131, 0, 193, 112, 219, 138, 132, 0,
+  39, 295, 247, 101, 10, 314, 1, 86, 61, 107, 0, 111, 207, 316, 359, 87, 65,
+  110, 241, 117, 134, 0, 121, 178, 236, 152, 16, 298, 50, 205, 231, 9, 215,
+];
 
 const skuValues = [
   "sku-7642",
@@ -444,69 +484,74 @@ const skuValues = [
   "sku-8556",
   "sku-4957",
   "sku-5470",
-  "sku-2259"
-]
-
-
-const topColorsForFilament = [
-    "Black",
-    "White",
-    "Gray",
-    "Blue",
-    "Red",
-    "Green",
-    "Translucent"
+  "sku-2259",
 ];
 
-RollWeightInGrams = [500, 1000]
+const topColorsForFilament = [
+  "Black",
+  "White",
+  "Gray",
+  "Blue",
+  "Red",
+  "Green",
+  "Translucent",
+];
+
+RollWeightInGrams = [500, 1000];
 
 async function createRolls() {
-    for (let i = 0; i < 300; i++) {
-        console.log(`roll ${i} created`)
-        const randomMaterial = await Material.findOne();
-        const randomDiameter = await Diameter.findOne();
-        const randomBrand = await Brand.findOne();
+  for (let i = 0; i < 300; i++) {
+    const randomMaterial = await Material.aggregate([{ $sample: { size: 1 } }]);
+    const randomDiameter = await Diameter.aggregate([{ $sample: { size: 1 } }]);
+    const randomBrand = await Brand.aggregate([{ $sample: { size: 1 } }]);
 
-        await rollCreate({
-            color: topColorsForFilament[Math.floor(Math.random() * topColorsForFilament.length)],
-            material: randomMaterial._id,
-            price: pricesInCents[Math.floor(Math.random() * pricesInCents.length)],
-            diameter: randomDiameter._id,
-            quantityOf: qtyValues[Math.floor(Math.random() * qtyValues.length)],
-            SKU: skuValues[i],
-            weightInGrams: RollWeightInGrams[Math.floor(Math.random() * RollWeightInGrams.length)],
-            brand: randomBrand._id,
-            priceInCents: pricesInCents[Math.floor(Math.random() * pricesInCents.length)],
-            description: "Placeholder for roll description",
-        });
-    }
+    await rollCreate({
+      color:
+        topColorsForFilament[
+          Math.floor(Math.random() * topColorsForFilament.length)
+        ],
+      material: randomMaterial[0]._id,
+      price: pricesInCents[Math.floor(Math.random() * pricesInCents.length)],
+      diameter: randomDiameter[0]._id,
+      quantityOf: qtyValues[Math.floor(Math.random() * qtyValues.length)],
+      SKU: skuValues[i],
+      weightInGrams:
+        RollWeightInGrams[Math.floor(Math.random() * RollWeightInGrams.length)],
+      brand: randomBrand[0]._id,
+      priceInCents:
+        pricesInCents[Math.floor(Math.random() * pricesInCents.length)],
+      description: "Placeholder for roll description",
+    });
+    console.log(
+      `roll ${i} created - ${randomMaterial[0].name} - ${randomBrand[0].name} - ${randomDiameter[0].size}`
+    );
+  }
 }
 
-
 const filamentDescriptions = [
-    "PLA (Polylactic Acid) is a popular choice due to its ease of use, low warping, and biodegradability.",
-    "ABS (Acrylonitrile Butadiene Styrene) is known for its durability, heat resistance, and post-print processing versatility.",
-    "PETG (Polyethylene Terephthalate Glycol-Modified) offers a balance of strength, flexibility, and impact resistance.",
-    "TPU (Thermoplastic Polyurethane) is highly flexible and elastic, making it suitable for producing flexible and stretchable parts.",
-    "Nylon (Polyamide) is known for its strength, durability, and resistance to wear, making it ideal for functional parts.",
-    "HIPS (High Impact Polystyrene) is often used as a support material due to its ability to dissolve in limonene.",
-    "PVA (Polyvinyl Alcohol) is a water-soluble material used for supports in dual-extrusion prints and complex geometries.",
-    "PC (Polycarbonate) offers excellent strength, heat resistance, and optical clarity, making it suitable for engineering applications.",
-    "ASA (Acrylonitrile Styrene Acrylate) combines the benefits of ABS with weather resistance, making it suitable for outdoor use.",
-    "PP (Polypropylene) is known for its chemical resistance, low density, and flexibility, making it suitable for living hinges and containers.",
-    "Wood-Infused Filament adds a natural wood-like appearance and texture to printed objects.",
-    "Metal-Infused Filament contains metal particles for a metallic finish and weight in printed objects.",
-    "Carbon Fiber-Infused Filament adds strength and stiffness to printed parts, making them suitable for high-performance applications.",
-    "Flexible Filament (e.g., TPE) produces rubber-like parts with elasticity and flexibility, ideal for gaskets and soft components.",
-    "Conductive Filament contains conductive materials, allowing for printed objects with electrical conductivity or EMI shielding."
+  "PLA (Polylactic Acid) is a popular choice due to its ease of use, low warping, and biodegradability.",
+  "ABS (Acrylonitrile Butadiene Styrene) is known for its durability, heat resistance, and post-print processing versatility.",
+  "PETG (Polyethylene Terephthalate Glycol-Modified) offers a balance of strength, flexibility, and impact resistance.",
+  "TPU (Thermoplastic Polyurethane) is highly flexible and elastic, making it suitable for producing flexible and stretchable parts.",
+  "Nylon (Polyamide) is known for its strength, durability, and resistance to wear, making it ideal for functional parts.",
+  "HIPS (High Impact Polystyrene) is often used as a support material due to its ability to dissolve in limonene.",
+  "PVA (Polyvinyl Alcohol) is a water-soluble material used for supports in dual-extrusion prints and complex geometries.",
+  "PC (Polycarbonate) offers excellent strength, heat resistance, and optical clarity, making it suitable for engineering applications.",
+  "ASA (Acrylonitrile Styrene Acrylate) combines the benefits of ABS with weather resistance, making it suitable for outdoor use.",
+  "PP (Polypropylene) is known for its chemical resistance, low density, and flexibility, making it suitable for living hinges and containers.",
+  "Wood-Infused Filament adds a natural wood-like appearance and texture to printed objects.",
+  "Metal-Infused Filament contains metal particles for a metallic finish and weight in printed objects.",
+  "Carbon Fiber-Infused Filament adds strength and stiffness to printed parts, making them suitable for high-performance applications.",
+  "Flexible Filament (e.g., TPE) produces rubber-like parts with elasticity and flexibility, ideal for gaskets and soft components.",
+  "Conductive Filament contains conductive materials, allowing for printed objects with electrical conductivity or EMI shielding.",
 ];
 
 async function createMaterials() {
-    console.log("Adding materials");
-    for (let i = 0; i < filament_types.length; i++) {
-      await materialCreate({
-        name: filament_types[i],
-        description: filamentDescriptions[i],
-      });
-    }
+  console.log("Adding materials");
+  for (let i = 0; i < filament_types.length; i++) {
+    await materialCreate({
+      name: filament_types[i],
+      description: filamentDescriptions[i],
+    });
+  }
 }
