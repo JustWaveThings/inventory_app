@@ -2,6 +2,9 @@ const Roll = require("../models/roll");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
+exports.index = asyncHandler(async (req, res, next) => {
+  res.render("index", { title: "Inventory Home" });
+});
 // display list of all rolls
 
 // display detail page for a specific roll
