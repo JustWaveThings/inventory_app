@@ -23,16 +23,47 @@ exports.index = asyncHandler(async (req, res, next) => {
 });
 // display list of all rolls
 
+exports.roll_list = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: all rolls");
+});
+
 // display detail page for a specific roll
 
+exports.roll_detail = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll detail: " + req.params.id);
+});
 // display roll create form on GET
+
+exports.roll_create_get = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll create GET");
+});
 
 // handle roll create on POST
 
+exports.roll_create_post = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll create POST");
+});
+
 // display roll delete form on GET
+
+exports.roll_delete_get = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll delete GET");
+});
 
 // handle roll delete on POST
 
+exports.roll_delete_post = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll delete POST");
+});
+
 // display roll update form on GET
 
+exports.roll_update_get = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll update GET");
+});
+
 // handle roll update on POST
+
+exports.roll_update_post = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll update POST");
+});

@@ -14,7 +14,11 @@ router.get("/", roll_controller.index);
 // Roll Routes
 // GET request for creating a roll. must come before routes that display roll (uses id)
 
-/* router.get("/roll/create", roll_controller.roll_create_get);
+router.get("/roll/create", roll_controller.roll_create_get);
+
+// GET request for list of all rolls  - done
+
+router.get("/rolls", roll_controller.roll_list);
 
 // POST request for creating roll
 
@@ -36,15 +40,15 @@ router.get("/roll/:id/update", roll_controller.roll_update_get);
 
 router.post("/roll/:id/update", roll_controller.roll_update_post);
 
-// GET request for one roll
+// GET request for one roll - roll detail - done
 
 router.get("/roll/:id", roll_controller.roll_detail);
 
-// GET request for list of all rolls
-
-router.get("/rolls", roll_controller.roll_list);
-
 // Brand Routes
+
+// get request for list of all brands
+
+router.get("/brands", brand_controller.brand_list);
 
 // GET request for creating a brand. must come before routes that display brand (uses id)
 
@@ -54,6 +58,10 @@ router.get("/brand/create", brand_controller.brand_create_get);
 
 router.post("/brand/create", brand_controller.brand_create_post);
 
+// GET request for one brand
+
+router.get("/brand/:id", brand_controller.brand_detail);
+
 // GET request to delete brand
 
 router.get("/brand/:id/delete", brand_controller.brand_delete_get);
@@ -61,6 +69,14 @@ router.get("/brand/:id/delete", brand_controller.brand_delete_get);
 // POST request to delete brand
 
 router.post("/brand/:id/delete", brand_controller.brand_delete_post);
+
+// GET request to update brand
+
+router.get("/brand/:id/update", brand_controller.brand_update_get);
+
+// post request to update brand
+
+router.post("/brand/:id/update", brand_controller.brand_update_post);
 
 // Diameter Routes
 // GET request for creating a diameter. must come before routes that display diameter (uses id)
@@ -126,6 +142,6 @@ router.get("/material/:id", material_controller.material_detail);
 
 // GET request for list of all materials
 
-router.get("/materials", material_controller.material_list); */
+router.get("/materials", material_controller.material_list);
 
 module.exports = router;
