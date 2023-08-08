@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-
 // require controller modules
 
 const brand_controller = require("../controllers/brandController");
@@ -15,7 +14,7 @@ router.get("/", roll_controller.index);
 // Roll Routes
 // GET request for creating a roll. must come before routes that display roll (uses id)
 
-router.get("/roll/create", roll_controller.roll_create_get);
+/* router.get("/roll/create", roll_controller.roll_create_get);
 
 // POST request for creating roll
 
@@ -96,8 +95,6 @@ router.get("/diameter/:id", diameter_controller.diameter_detail);
 
 router.get("/diameters", diameter_controller.diameter_list);
 
-
-
 // Material Routes
 // GET request for creating a material. must come before routes that display material (uses id)
 
@@ -123,15 +120,12 @@ router.get("/material/:id/update", material_controller.material_update_get);
 
 router.post("/material/:id/update", material_controller.material_update_post);
 
-
 // GET request for one material
 
 router.get("/material/:id", material_controller.material_detail);
 
 // GET request for list of all materials
 
-router.get("/materials", material_controller.material_list);
-
-
+router.get("/materials", material_controller.material_list); */
 
 module.exports = router;
