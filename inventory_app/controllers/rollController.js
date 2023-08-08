@@ -1,9 +1,25 @@
 const Roll = require("../models/roll");
+const Brand = require("../models/brand");
+const Material = require("../models/material");
+const Diameter = require("../models/diameter");
+
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  res.render("index", { title: "Inventory Home" });
+  const [numBrands, numMaterials, numRolls, numDiameters] = await Promise.all([
+    Brand.countDocuments({}).exec(),
+    Material.countDocuments({}).exec(),
+    Roll.countDocuments({}).exec(),
+    Diameter.countDocuments({}).exec(),
+  ]);
+  res.render("index", {
+    title: "Inventory Home",
+    brand_count: numBrands,
+    material_count: numMaterials,
+    roll_count: numRolls,
+    diameter_count: numDiameters,
+  });
 });
 // display list of all rolls
 
