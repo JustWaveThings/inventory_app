@@ -5,7 +5,13 @@ const { body, validationResult } = require("express-validator");
 // display list of all brands
 
 exports.brand_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: all brands GET");
+  const brands = await Brand.find({}).exec();
+  console.log(brands);
+  res.render("brand_list", {
+    title: "All Brands",
+    store_title: "Filament Online - Ready GetSet Extrude!",
+    items: brands,
+  });
 });
 
 // display detail page for a specific brand
