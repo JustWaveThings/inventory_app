@@ -6,9 +6,10 @@ const { body, validationResult } = require("express-validator");
 
 exports.diameter_list = asyncHandler(async (req, res, next) => {
   // get a list of all diameters
-  const diameters = await Diameter.find({}).populate("size").exec();
+  const diameters = await Diameter.find({}).exec();
   console.log(diameters);
   res.render("diameter_list", {
+    store_title: "Filament Online - Ready GetSet Extrude!",
     title: "All Diameters",
     items: diameters,
   });
