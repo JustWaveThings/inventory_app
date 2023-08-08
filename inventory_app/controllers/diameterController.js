@@ -5,7 +5,13 @@ const { body, validationResult } = require("express-validator");
 // display list of all diameters
 
 exports.diameter_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: all diameters GET");
+  // get a list of all diameters
+  const diameters = await Diameter.find({}).populate("size").exec();
+  console.log(diameters);
+  res.render("diameter_list", {
+    title: "All Diameters",
+    items: diameters,
+  });
 });
 
 // display detail page for a specific diameter
