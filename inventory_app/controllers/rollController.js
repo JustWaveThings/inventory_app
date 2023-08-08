@@ -14,7 +14,7 @@ exports.index = asyncHandler(async (req, res, next) => {
     Diameter.countDocuments({}).exec(),
   ]);
   res.render("index", {
-    title: "Inventory Home",
+    title: "Filament Online - Ready GetSet Extrude!",
     brand_count: numBrands,
     material_count: numMaterials,
     roll_count: numRolls,
