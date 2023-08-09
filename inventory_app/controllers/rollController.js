@@ -27,8 +27,6 @@ exports.index = asyncHandler(async (req, res, next) => {
 exports.roll_list = asyncHandler(async (req, res, next) => {
   const rolls = await Roll.find({}).populate("material brand diameter").exec();
 
-  rolls.forEach((roll) => console.log(roll.name));
-
   res.render("roll_list", {
     title: "All filament rolls",
     store_title: "Filament Online - Ready GetSet Extrude!",
