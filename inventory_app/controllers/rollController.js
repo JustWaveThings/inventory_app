@@ -5,6 +5,7 @@ const Diameter = require("../models/diameter");
 
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const material = require("../models/material");
 
 exports.index = asyncHandler(async (req, res, next) => {
   const [numBrands, numMaterials, numRolls, numDiameters] = await Promise.all([
@@ -24,7 +25,15 @@ exports.index = asyncHandler(async (req, res, next) => {
 // display list of all rolls
 
 exports.roll_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: all rolls");
+  const rolls = await Roll.find({}).populate("material brand diameter").exec();
+
+  rolls.forEach((roll) => console.log(roll.name));
+
+  res.render("roll_list", {
+    title: "All filament rolls",
+    store_title: "Filament Online - Ready GetSet Extrude!",
+    items: rolls,
+  });
 });
 
 // display detail page for a specific roll
