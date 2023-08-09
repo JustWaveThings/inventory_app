@@ -9,7 +9,6 @@ exports.brand_list = asyncHandler(async (req, res, next) => {
   console.log(brands);
   res.render("brand_list", {
     title: "All Brands",
-    store_title: "Filament Online - Ready GetSet Extrude!",
     items: brands,
   });
 });

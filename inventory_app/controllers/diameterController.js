@@ -9,7 +9,6 @@ exports.diameter_list = asyncHandler(async (req, res, next) => {
   const diameters = await Diameter.find({}).exec();
   console.log(diameters);
   res.render("diameter_list", {
-    store_title: "Filament Online - Ready GetSet Extrude!",
     title: "All Diameters",
     items: diameters,
   });

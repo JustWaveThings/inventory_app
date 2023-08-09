@@ -15,7 +15,6 @@ exports.index = asyncHandler(async (req, res, next) => {
     Diameter.countDocuments({}).exec(),
   ]);
   res.render("index", {
-    title: "Filament Online - Ready GetSet Extrude!",
     brand_count: numBrands,
     material_count: numMaterials,
     roll_count: numRolls,
@@ -29,7 +28,6 @@ exports.roll_list = asyncHandler(async (req, res, next) => {
 
   res.render("roll_list", {
     title: "All filament rolls",
-    store_title: "Filament Online - Ready GetSet Extrude!",
     items: rolls,
   });
 });
