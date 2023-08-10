@@ -5,7 +5,10 @@ include('../partials/nav') %> <%# content goes here.... %>
 
 <ul>
   <% items.forEach(function(item) { %>
-  <li><%= item.name%> / <%= item.description %> / <%= item.websiteUrl %></li>
+  <li>
+    <a href="<%=item.url%>"><%= item.name%></a> / <%= item.description %> / <%=
+    item.websiteUrl %>
+  </li>
   <% }); %>
 </ul>
 
