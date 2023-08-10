@@ -1,0 +1,101 @@
+<%- include('../partials/head') %> <%- include('../partials/header') %><%-
+include('../partials/nav') %> <%# content goes here.... %>
+
+<h4><%= title %></h4>
+
+<div class="form-group">
+  <form action="POST" action="">
+    <label for="material">Material:</label>
+    <select
+      type="select"
+      class="form-control"
+      id="material"
+      name="material"
+      required="true"
+      placeholder="Select Material"
+    >
+      <% materials.sort(function(a, b) {let textA = a.name.toUpperCase(); let
+      textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA >
+      textB) ? 1 : 0;})%> <% for (let material of materials) { %> <% if
+      (material && material._id.toString() === material._id.toString()) { %>
+      <option value="<%= material._id %>" selected><%= material.name %></option>
+      <% } else { %>
+      <option value="<%= material._id %>"><%= material.name %></option>
+      <% } %> <% } %>
+    </select>
+
+    <label for="brand">Brand:</label>
+    <select
+      type="select"
+      class="form-control"
+      id="brand"
+      name="brand"
+      required="true"
+      placeholder="Select Brand"
+    >
+      <% brands.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB
+      = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1
+      : 0;}); %> <% for (let brand of brands) { %> <% if (brand &&
+      brand._id.toString() === brand._id.toString()) { %>
+      <option value="<%= brand._id %>" selected><%= brand.name %></option>
+      <% } else { %>
+      <option value="<%= brand._id %>"><%= brand.name %></option>
+      <% } %> <% } %>
+    </select>
+    <label for="diameter">Diameter:</label>
+    <select
+      type="select"
+      class="form-control"
+      id="diameter"
+      name="diameter"
+      required="true"
+      placeholder="Select Diameter"
+    >
+      <% diameters.sort(function(a, b) {(a < b) ? -1 : (a > b) ? 1 : 0}) %> <%
+      for (let diameter of diameters) { %> <% if (diameter &&
+      diameter._id.toString()) { %>
+      <option value="<%= diameter._id %>" selected><%= diameter.size %></option>
+      <% } else { %>
+      <option value="<%= diameter._id %>"><%= diameter.size %></option>
+      <% } %> <% } %>
+    </select>
+    <label for="priceInDollars">Price:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="priceInDollars"
+      name="priceInDollars"
+    />
+    <label for="quantityOf">Quantity:</label>
+    <input
+      type="number"
+      numbertype="integer"
+      min="0"
+      class="form-control"
+      id="quantityOf"
+      name="quantityOf"
+    />
+    <label for="SKU">SKU:</label>
+    <input type="text" class="form-control" id="SKU" name="SKU" />
+    <label for="color">Color:</label>
+    <input type="text" class="form-control" id="color" name="color" />
+    <label for="weightInGrams">Weight:</label>
+    <input
+      type="number"
+      min="0"
+      class="form-control"
+      id="weightInGrams"
+      name="weightInGrams"
+    />
+    <label for="description">Description:</label>
+    <input
+      type="textarea"
+      class="form-control"
+      id="description"
+      name="description"
+    />
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
