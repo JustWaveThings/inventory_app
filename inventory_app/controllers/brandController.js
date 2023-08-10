@@ -16,13 +16,14 @@ exports.brand_list = asyncHandler(async (req, res, next) => {
 // display detail page for a specific brand
 
 exports.brand_detail = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: brand detail GET: " + req.params.id);
+  const brand = await Brand.findById(req.params.id);
+  res.render("brand_detail", { title: "Brand Detail", item: brand });
 });
 
 // display brand create form on GET
 
 exports.brand_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: brand create GET");
+  res.render("brand_form", { title: "Create Brand" });
 });
 
 // handle brand create on POST

@@ -5,19 +5,24 @@ const { body, validationResult } = require("express-validator");
 // display list of all materials
 
 exports.material_list = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: all materials GET");
+  const material_list = await Material.find();
+  res.render("material_list", {
+    title: "Material List",
+    items: material_list,
+  });
 });
 
 // display detail page for a specific material
 
 exports.material_detail = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: material detail GET: " + req.params.id);
+  const material = await Material.findById(req.params.id);
+  res.render("material_detail", { title: "Material Detail", item: material });
 });
 
 // display material create form on GET
 
 exports.material_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: material create GET");
+  res.render("material_form", { title: "Create Material" });
 });
 
 // handle material create on POST

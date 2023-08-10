@@ -17,13 +17,14 @@ exports.diameter_list = asyncHandler(async (req, res, next) => {
 // display detail page for a specific diameter
 
 exports.diameter_detail = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: diameter detail GET: " + req.params.id);
+  const diameter = await Diameter.findById(req.params.id);
+  res.render("diameter_detail", { title: "Diameter Detail", item: diameter });
 });
 
 // display diameter create form on GET
 
 exports.diameter_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: diameter create GET");
+  res.render("diameter_form", { title: "Create Diameter" });
 });
 
 // handle diameter create on POST

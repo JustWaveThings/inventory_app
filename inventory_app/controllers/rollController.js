@@ -35,12 +35,25 @@ exports.roll_list = asyncHandler(async (req, res, next) => {
 // display detail page for a specific roll
 
 exports.roll_detail = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: roll detail: " + req.params.id);
+  const roll = await Roll.findById(req.params.id)
+    .populate("material brand diameter")
+    .exec();
+  res.render("roll_detail", { title: "Roll Detail", item: roll });
 });
 // display roll create form on GET
 
 exports.roll_create_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: roll create GET");
+  const [brands, materials, diameters] = await Promise.all([
+    Brand.find({}).exec(),
+    Material.find({}).exec(),
+    Diameter.find({}).exec(),
+  ]);
+  res.render("roll_form", {
+    title: "Create Roll",
+    brands: brands,
+    materials: materials,
+    diameters: diameters,
+  });
 });
 
 // handle roll create on POST
