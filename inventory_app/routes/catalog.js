@@ -46,13 +46,13 @@ router.get("/roll/:id", roll_controller.roll_detail);
 
 // Brand Routes
 
-// get request for list of all brands
-
-router.get("/brands", brand_controller.brand_list);
-
 // GET request for creating a brand. must come before routes that display brand (uses id)
 
 router.get("/brand/create", brand_controller.brand_create_get);
+
+// get request for list of all brands
+
+router.get("/brands", brand_controller.brand_list);
 
 // POST request for creating brand
 
