@@ -28,9 +28,50 @@ exports.brand_create_get = asyncHandler(async (req, res, next) => {
 
 // handle brand create on POST
 
-exports.brand_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: brand create POST");
-});
+exports.brand_create_post = [
+  // validate and sanitize fields
+  body("name")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Brand name must be specified."),
+  body("description")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Brand description must be specified."),
+  body("websiteUrl")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Brand website URL must be specified."),
+  // process request after validation and sanitization
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const brand = new Brand({
+      name: req.body.name,
+      description: req.body.description,
+      websiteUrl: req.body.websiteUrl,
+    });
+
+    if (!errors.isEmpty()) {
+      res.render("brand_form", {
+        title: "Create Brand",
+        brand: req.body,
+        errors: errors.array(),
+      });
+    } else {
+      const brandExists = await Brand.findOne({ name: req.body.name });
+      if (brandExists) {
+        res.redirect(brandExists.url);
+      } else {
+        await brand.save();
+        res.redirect(brand.url);
+      }
+    }
+  }),
+];
 
 // display brand delete form on GET
 
