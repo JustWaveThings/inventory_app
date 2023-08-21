@@ -1,0 +1,21 @@
+<%- include('../partials/head') %> <%- include('../partials/header') %><%-
+include('../partials/nav') %> <%# content goes here.... %>
+
+<h4><%= title %></h4>
+
+<ul>
+  <li><%= item.name %></li>
+</ul>
+
+<hr />
+<p>Do you really want to delete this roll?</p>
+<form method="POST" action="">
+  <div class="form-group">
+    <input type="hidden" name="id" value="<%= item.id %>" required="true" />
+  </div>
+  <button type="submit" class="btn btn-delete">Delete</button>
+  <input type="submit" value="Delete" />
+  <hr />
+
+  <%- include('../partials/footer') %>
+</form>
