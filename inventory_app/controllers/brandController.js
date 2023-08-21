@@ -1,6 +1,7 @@
 const Brand = require("../models/brand");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
+const Roll = require("../models/roll");
 
 // display list of all brands
 
@@ -78,15 +79,14 @@ exports.brand_create_post = [
 exports.brand_delete_get = asyncHandler(async (req, res, next) => {
   const [brand, brandItems] = await Promise.all([
     Brand.findById(req.params.id).exec(),
-    Item.find({ brand: req.params.id }).exec(),
+    Roll.find({ brand: req.params.id }).exec(),
   ]);
   if (brand == null) {
     res.redirect("/catalog/brands");
   }
   res.render("brand_delete", {
     title: "Delete Brand",
-    brand,
-    brandItems,
+    item: brand,
   });
 });
 
