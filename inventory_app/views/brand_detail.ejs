@@ -3,9 +3,15 @@ include('../partials/nav') %> <%# content goes here.... %>
 
 <h4><%= title %></h4>
 
-<ul>
-  <li><%= item.name %></li>
-</ul>
+<H3>Brand: <%= item.name %></H3>
+<p>Description: <%= item.description %></p>
+<p>
+  Website URL:
+  <a href="https://www.<%= item.websiteUrl %>" target="_blank"
+    >www.<%= item.websiteUrl %></a
+  >
+</p>
+
 <hr />
 <p>
   <a href="<%= item.url %>/update">Update brand</a>
