@@ -8,13 +8,13 @@ const diameter_controller = require("../controllers/diameterController");
 const material_controller = require("../controllers/materialController");
 const roll_controller = require("../controllers/rollController");
 
-/* GET catalog home page. */
-router.get("/", roll_controller.index);
-
 // Roll Routes
 // GET request for creating a roll. must come before routes that display roll (uses id)
 
 router.get("/roll/create", roll_controller.roll_create_get);
+
+/* GET catalog home page. */
+router.get("/", roll_controller.index);
 
 // GET request for list of all rolls  - done
 
