@@ -5,7 +5,6 @@ const DiameterSchema = new Schema({
   size: {
     type: Number,
     required: true,
-    enum: [1.75, 3],
     default: 1.75,
   },
 });
