@@ -3,8 +3,16 @@ include('../partials/nav') %> <%# content goes here.... %>
 
 <h4><%= title %></h4>
 
-<ul>
-  <li><%= item.name %></li>
-</ul>
+<H3>Material: <%= item.name%></H3>
 
+<p>Description: <%= item.description %></p>
+
+<hr />
+<p>
+  <a href="<%= item.url %>/update">Update material</a>
+</p>
+<p>
+  <a href="<%= item.url %>/delete">Delete material</a>
+</p>
+<hr />
 <%- include('../partials/footer') %>

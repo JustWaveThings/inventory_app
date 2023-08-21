@@ -27,9 +27,41 @@ exports.material_create_get = asyncHandler(async (req, res, next) => {
 
 // handle material create on POST
 
-exports.material_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: material create POST");
-});
+exports.material_create_post = [
+  //validate and sanitize fields
+  body("name", "Material name required").trim().isLength({ min: 1 }).escape(),
+  body("description", "Material description required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const material = new Material({
+      name: req.body.name,
+      description: req.body.description,
+    });
+
+    if (!errors.isEmpty()) {
+      res.render("material_form", {
+        title: "Create Material",
+        material,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      const existing_material = await Material.findOne({
+        name: req.body.name,
+      });
+
+      if (existing_material) {
+        res.send("Material already exists, update the material instead");
+      } else {
+        await material.save(material);
+        res.redirect(material.url);
+      }
+    }
+  }),
+];
 
 // display material delete form on GET
 
