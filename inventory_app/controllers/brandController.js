@@ -76,7 +76,18 @@ exports.brand_create_post = [
 // display brand delete form on GET
 
 exports.brand_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: brand delete GET");
+  const [brand, brandItems] = await Promise.all([
+    Brand.findById(req.params.id).exec(),
+    Item.find({ brand: req.params.id }).exec(),
+  ]);
+  if (brand == null) {
+    res.redirect("/catalog/brands");
+  }
+  res.render("brand_delete", {
+    title: "Delete Brand",
+    brand,
+    brandItems,
+  });
 });
 
 // handle brand delete on POST
