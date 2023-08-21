@@ -50,17 +50,17 @@ exports.roll_create_get = asyncHandler(async (req, res, next) => {
   ]);
   res.render("roll_form", {
     title: "Create Roll",
-    brands: brands,
-    materials: materials,
-    diameters: diameters,
+    brands,
+    materials,
+    diameters,
   });
 });
 
 // handle roll create on POST
 
-exports.roll_create_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: Roll create POST");
-});
+/* exports.roll_create_post = asyncHandler(async (req, res, next) => {
+  res.send("NOT IMPLEMENTED: roll update GET");
+}); */
 
 /* exports.roll_create_post = [
   // handle iterating through brand, material and diameter arrays
@@ -131,10 +131,73 @@ exports.roll_create_post = asyncHandler(async (req, res, next) => {
     } else {
       console.log("roll: " + roll._id);
       await roll.save();
+      res.redirect(roll.url);
+    }
+  }),
+]; */
+
+exports.roll_create_post = [
+  //validate and sanitize fields
+  body("brand.*").escape(),
+  body("material.*").escape(),
+  body("diameter.*").escape(),
+  body("weightInGrams", "Weight must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("color", "Color must be specified").trim().isLength({ min: 1 }).escape(),
+  body("priceInCents", "Price must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("quantityOf", "Quantity must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("SKU", "SKU must be specified").trim().isLength({ min: 1 }).escape(),
+  body("description", "Description must be specified")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    console.log(typeof req.body.quantityOf);
+    const errors = validationResult(req);
+    console.log(errors);
+    const roll = new Roll({
+      brand: req.body.brand,
+      material: req.body.material,
+      diameter: req.body.diameter,
+      weightInGrams: req.body.weightInGrams,
+      color: req.body.color,
+      priceInCents: req.body.priceInCents,
+      quantityOf: req.body.quantityOf,
+      SKU: req.body.SKU,
+      description: req.body.description,
+    });
+
+    if (!errors.isEmpty()) {
+      const [brands, materials, diameters] = await Promise.all([
+        Brand.find({}).exec(),
+        Material.find({}).exec(),
+        Diameter.find({}).exec(),
+      ]);
+      res.render("roll_form", {
+        title: "Create Roll",
+        brands,
+        materials,
+        diameters,
+        roll,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await roll.save();
+      res.redirect(roll.url);
     }
   }),
 ];
- */
+
 // display roll delete form on GET
 
 exports.roll_delete_get = asyncHandler(async (req, res, next) => {
