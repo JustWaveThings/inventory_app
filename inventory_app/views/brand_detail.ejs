@@ -6,5 +6,12 @@ include('../partials/nav') %> <%# content goes here.... %>
 <ul>
   <li><%= item.name %></li>
 </ul>
+<hr />
+<p>
+  <a href="<%= item.url %>/update">Update brand</a>
+</p>
+<p>
+  <a href="<%= item.url %>/delete">Delete brand</a>
+</p>
 
 <%- include('../partials/footer') %>
