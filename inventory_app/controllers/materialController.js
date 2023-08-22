@@ -66,7 +66,20 @@ exports.material_create_post = [
 // display material delete form on GET
 
 exports.material_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: material delete GET");
+  const [material, rollsUsingMaterial] = await Promise.all([
+    Material.findById(req.params.id),
+    Roll.find({ material: req.params.id })
+      .populate("material brand diameter")
+      .exec(),
+  ]);
+  if (material == null) {
+    res.redirect("/catalog/materials");
+  }
+  res.render("material_delete", {
+    title: "Delete Material",
+    item: material,
+    rolls: rollsUsingMaterial,
+  });
 });
 
 // handle material delete on POST
