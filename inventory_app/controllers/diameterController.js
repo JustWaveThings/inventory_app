@@ -93,15 +93,3 @@ exports.diameter_delete_post = asyncHandler(async (req, res, next) => {
     res.redirect("/catalog/diameters");
   }
 });
-
-// display diameter update form on GET
-
-exports.diameter_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: diameter update GET");
-});
-
-// handle diameter update on POST
-
-exports.diameter_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: diameter update POST");
-});
