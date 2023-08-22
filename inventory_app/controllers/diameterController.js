@@ -89,7 +89,6 @@ exports.diameter_delete_post = asyncHandler(async (req, res, next) => {
     });
     return;
   } else {
-    console.log(req.body);
     await Diameter.findByIdAndRemove(req.body.diameter);
     res.redirect("/catalog/diameters");
   }
