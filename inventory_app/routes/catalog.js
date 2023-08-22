@@ -95,14 +95,6 @@ router.get("/diameter/:id/delete", diameter_controller.diameter_delete_get);
 
 router.post("/diameter/:id/delete", diameter_controller.diameter_delete_post);
 
-// GET request to update diameter
-
-router.get("/diameter/:id/update", diameter_controller.diameter_update_get);
-
-// POST request to update diameter
-
-router.post("/diameter/:id/update", diameter_controller.diameter_update_post);
-
 // GET request for one diameter
 
 router.get("/diameter/:id", diameter_controller.diameter_detail);
