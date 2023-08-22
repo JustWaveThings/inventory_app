@@ -6,13 +6,22 @@ include('../partials/nav') %> <%# content goes here.... %>
 <div class="form-group">
   <form action="" method="post">
     <label for="name">Name:</label>
-    <input type="text" class="form-control" id="name" name="name" />
-    <label for="description">Description:</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      name="name"
+      value="<%=
+    undefined == item ? '' : item.name %>"
+    />
+    <label for="description"> Description: </label>
     <input
       type="textarea"
       class="form-control"
       id="description"
       name="description"
+      value="<%=
+    undefined == item ? '' : item.description %>"
     />
     <button class="btn btn-primary" type="submit">Submit</button>
   </form>
