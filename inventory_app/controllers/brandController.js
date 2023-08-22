@@ -77,9 +77,11 @@ exports.brand_create_post = [
 // display brand delete form on GET
 
 exports.brand_delete_get = asyncHandler(async (req, res, next) => {
-  const [brand, brandItems] = await Promise.all([
+  const [brand, rollsWithBrand] = await Promise.all([
     Brand.findById(req.params.id).exec(),
-    Roll.find({ brand: req.params.id }).exec(),
+    Roll.find({ brand: req.params.id })
+      .populate("material brand diameter")
+      .exec(),
   ]);
   if (brand == null) {
     res.redirect("/catalog/brands");
@@ -87,13 +89,30 @@ exports.brand_delete_get = asyncHandler(async (req, res, next) => {
   res.render("brand_delete", {
     title: "Delete Brand",
     item: brand,
+    rolls: rollsWithBrand,
   });
 });
 
 // handle brand delete on POST
 
 exports.brand_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: brand delete POST");
+  const [brand, rollsWithBrand] = await Promise.all([
+    Brand.findById(req.params.id).exec(),
+    Roll.find({ brand: req.params.id })
+      .populate("material brand diameter")
+      .exec(),
+  ]);
+  if (rollsWithBrand.length > 0) {
+    res.render("brand_delete", {
+      title: "Delete Brand",
+      item: brand,
+      rolls: rollsWithBrand,
+    });
+    return;
+  } else {
+    await Brand.findByIdAndRemove(req.body.brand);
+    res.redirect("/catalog/brands");
+  }
 });
 
 // display brand update form on GET
