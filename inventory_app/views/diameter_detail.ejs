@@ -6,5 +6,12 @@ include('../partials/nav') %> <%# content goes here.... %>
 <ul>
   <li>Diameter size: <%= item.name %></li>
 </ul>
-
+<hr />
+<p>
+  <a href="<%= item.url %>/update">Update diameter</a>
+</p>
+<p>
+  <a href="<%= item.url %>/delete">Delete diameter</a>
+</p>
+<hr />
 <%- include('../partials/footer') %>

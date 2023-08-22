@@ -1,4 +1,5 @@
 const Diameter = require("../models/diameter");
+const Roll = require("../models/roll");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
@@ -54,13 +55,44 @@ exports.diameter_create_post = [
 // display diameter delete form on GET
 
 exports.diameter_delete_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: diameter delete GET");
+  const [diameter, rollsWithDiameter] = await Promise.all([
+    Diameter.findById(req.params.id),
+    Roll.find({ diameter: req.params.id })
+      .populate("material brand diameter")
+      .exec(),
+  ]);
+
+  if (diameter == null) {
+    res.redirect("/catalog/diameters");
+  }
+  res.render("diameter_delete", {
+    title: "Delete Diameter",
+    item: diameter,
+    rolls: rollsWithDiameter,
+  });
 });
 
 // handle diameter delete on POST
 
 exports.diameter_delete_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: diameter delete POST");
+  const [diameter, rollsWithDiameter] = await Promise.all([
+    Diameter.findById(req.params.id),
+    Roll.find({ diameter: req.params.id })
+      .populate("material brand diameter")
+      .exec(),
+  ]);
+  if (rollsWithDiameter.length > 0) {
+    res.render("diameter_delete", {
+      title: "Delete Diameter",
+      item: diameter,
+      rolls: rollsWithDiameter,
+    });
+    return;
+  } else {
+    console.log(req.body);
+    await Diameter.findByIdAndRemove(req.body.diameter);
+    res.redirect("/catalog/diameters");
+  }
 });
 
 // display diameter update form on GET
