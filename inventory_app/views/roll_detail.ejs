@@ -3,16 +3,16 @@ include('../partials/nav') %> <%# content goes here.... %>
 
 <h4><%= title %></h4>
 
-<H3><%= item.brand.name %> - <%= item.material.name %> - <%= item.color %></H3>
+<H3><%- item.brand.name %> - <%- item.material.name %> - <%- item.color %></H3>
 
 <ul>
-  <li>Material: <%= item.material.name %></li>
-  <li>Brand: <%= item.brand.name %></li>
-  <li>Diameter: <%= item.diameter.size %>mm</li>
-  <li>Color: <%= item.color %></li>
-  <li>Quantity: <%= item.quantityOf %> pieces</li>
-  <li>Price: $<%= item.priceInDollars %></li>
-  <li>Weight (grams): <%= item.weightInGrams %></li>
+  <li>Material: <%- item.material.name %></li>
+  <li>Brand: <%- item.brand.name %></li>
+  <li>Diameter: <%- item.diameter.size %>mm</li>
+  <li>Color: <%- item.color %></li>
+  <li>Quantity: <%- item.quantityOf %> pieces</li>
+  <li>Price: $<%- item.priceInDollars %></li>
+  <li>Weight (grams): <%- item.weightInGrams %></li>
 </ul>
 
 <% if (item.errors) { %>

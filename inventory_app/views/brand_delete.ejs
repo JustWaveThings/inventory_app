@@ -4,7 +4,7 @@ include('../partials/nav') %> <%# content goes here.... %>
 <h4><%= title %></h4>
 
 <ul>
-  <li>Brand: <%= item.name %></li>
+  <li>Brand: <%- item.name %></li>
 </ul>
 
 <% if (rolls.length > 0) { %>
@@ -18,7 +18,7 @@ include('../partials/nav') %> <%# content goes here.... %>
   <% rolls.forEach(roll => { %>
   <dt>
     <a href="<%= roll.url %>"
-      ><%= roll.brand.name %> - <%= roll.material.name %> - <%= roll.color %></a
+      ><%- roll.brand.name %> - <%- roll.material.name %> - <%- roll.color %></a
     >
   </dt>
 

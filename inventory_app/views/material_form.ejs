@@ -11,7 +11,7 @@ include('../partials/nav') %> <%# content goes here.... %>
       class="form-control"
       id="name"
       name="name"
-      value="<%=
+      value="<%-
     undefined == item ? '' : item.name %>"
     />
     <label for="description"> Description: </label>
@@ -20,7 +20,7 @@ include('../partials/nav') %> <%# content goes here.... %>
       class="form-control"
       id="description"
       name="description"
-      value="<%=
+      value="<%-
     undefined == item ? '' : item.description %>"
     />
     <button class="btn btn-primary" type="submit">Submit</button>
