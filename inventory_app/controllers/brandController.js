@@ -118,11 +118,59 @@ exports.brand_delete_post = asyncHandler(async (req, res, next) => {
 // display brand update form on GET
 
 exports.brand_update_get = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: brand update GET");
+  const [brand, rollsWithBrand] = await Promise.all([
+    Brand.findById(req.params.id).exec(),
+    Roll.find({ brand: req.params.id })
+      .populate("material brand diameter")
+      .exec(),
+  ]);
+  if (brand == null) {
+    res.redirect("/catalog/brands");
+  }
+  res.render("brand_form", {
+    title: "Update Brand",
+    item: brand,
+    rolls: rollsWithBrand,
+  });
 });
 
 // handle brand update on POST
 
-exports.brand_update_post = asyncHandler(async (req, res, next) => {
-  res.send("NOT IMPLEMENTED: brand update POST");
-});
+exports.brand_update_post = [
+  //validate and sanitize fields
+  body("name", "Brand name must be specified.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("description")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Brand description must be specified."),
+  body("websiteUrl")
+    .trim()
+    .isLength({ min: 1 })
+    .escape()
+    .withMessage("Brand website URL must be specified."),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const brand = new Brand({
+      name: req.body.name,
+      description: req.body.description,
+      websiteUrl: req.body.websiteUrl,
+      _id: req.params.id,
+    });
+    if (!errors.isEmpty()) {
+      res.render("brand_form", {
+        title: "Update Brand",
+        item: brand,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      await Brand.findByIdAndUpdate(req.params.id, brand);
+      res.redirect(brand.url);
+    }
+  }),
+];
