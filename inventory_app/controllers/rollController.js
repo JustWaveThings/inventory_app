@@ -83,9 +83,7 @@ exports.roll_create_post = [
     .escape(),
 
   asyncHandler(async (req, res, next) => {
-    console.log(typeof req.body.quantityOf);
     const errors = validationResult(req);
-    console.log(errors);
     const roll = new Roll({
       brand: req.body.brand,
       material: req.body.material,
@@ -144,7 +142,6 @@ exports.roll_delete_post = asyncHandler(async (req, res, next) => {
     res.redirect("/catalog/rolls");
     return;
   } else {
-    console.log(req.body.id);
     await Roll.findByIdAndRemove(req.body.id);
     res.redirect("/catalog/rolls");
   }

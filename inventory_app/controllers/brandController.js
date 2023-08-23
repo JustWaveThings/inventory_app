@@ -7,7 +7,7 @@ const Roll = require("../models/roll");
 
 exports.brand_list = asyncHandler(async (req, res, next) => {
   const brands = await Brand.find({}).exec();
-  console.log(brands);
+
   res.render("brand_list", {
     title: "All Brands",
     items: brands,
@@ -24,7 +24,7 @@ exports.brand_detail = asyncHandler(async (req, res, next) => {
 // display brand create form on GET
 
 exports.brand_create_get = asyncHandler(async (req, res, next) => {
-  res.render("brand_form", { title: "Create Brand" });
+  res.render("brand_form", { title: "Create Brand", item: null });
 });
 
 // handle brand create on POST
@@ -154,7 +154,6 @@ exports.brand_update_post = [
     .withMessage("Brand website URL must be specified."),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-
     const brand = new Brand({
       name: req.body.name,
       description: req.body.description,
