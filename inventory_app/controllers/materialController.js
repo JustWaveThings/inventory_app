@@ -139,7 +139,6 @@ exports.material_update_post = [
       });
 
       if (existing_material) {
-        res.send("Material already exists, update the material instead");
       } else {
         await Material.findByIdAndUpdate(req.params.id, material);
         res.redirect(material.url);
